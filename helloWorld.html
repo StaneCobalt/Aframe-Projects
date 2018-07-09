@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
+	</head>
+	<body>
+		<a-scene>
+			<a-assets>
+				<img id="city1" src="city.jpg"/>
+				<img id="cstl" src="CSTL-Logo.png"/>
+				<img id="faclab" src="faclab.jpg"/>
+				<img id="techpit" src="techpit.jpg"/>
+			</a-assets>
+			<!--
+			<a-sky id="city" radius="12" src="#techpit"></a-sky>
+			<a-box height="2" width="3" depth="0.1" position="-8 4 -3" src="#cstl" rotation="0 70 0"></a-box>
+			-->
+			<a-sky color="black"></a-sky>
+			<a-curvedimage src="#cstl" height="2" theta-length="60" position="0 1.5 0"></a-curvedimage>
+			<a-entity rotation="0 210 0">
+			  <a-camera></a-camera>
+			</a-entity>
+		</a-scene>
+	</body>
+</html>

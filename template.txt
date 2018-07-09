@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
+		<!-- use wasd and scroll wheel to move around -->
+	</head>
+	<body>
+		<a-scene>
+			<a-assets>
+				
+			</a-assets>
+			<a-sky radius="10" src="#"></a-sky>
+			
+		</a-scene>
+	</body>
+</html>

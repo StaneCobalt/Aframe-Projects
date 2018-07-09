@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8"/>
+		<script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
+		<!-- use wasd and scroll wheel to move around -->
+		<script>
+			AFRAME.registerComponent('maketext',{
+				init: function(){
+					var scene = document.querySelector('a-scene');
+					var text = scene.querySelector('#text1');
+					text.setAttribute("visible",false);
+					var textMade = false;
+					this.el.addEventListener('mousedown', function(){
+						if(!textMade){
+							text1.setAttribute("value","Wahoo!");
+							text1.setAttribute("visible",true);
+							textMade = true;
+						}
+					});
+				}
+			});
+		</script>
+	</head>
+	<body>
+		<a-scene stats>
+			<!-- ASSETS -->
+			<a-assets>
+				<a-asset-item id="mario-obj" src="mario-obj/mario-sculpture.obj"></a-asset-item>
+				<a-asset-item id="mario-mtl" src="mario-obj/mario-sculpture.mtl"></a-asset-item>
+				<img id="reticle" src="ret2.png"/>
+			</a-assets>
+			
+			<!-- CURSOR -->
+			<a-entity camera look-controls wasd-controls position="0 2 4.5" data-aframe-default-camera>
+				<a-entity cursor="fuse:true" position="0 0 -1" 
+					geometry="primitive: circle; radius:0.05;" material="src: #reticle; opacity:0.9; color:red;">
+						<a-animation begin="mousedown" easing="linear" attribute="scale" dur="100"
+						   fill="forwards" from="0.1 0.1 0.1" to="1 1 1"></a-animation>
+						<a-animation begin="mouseenter" fill="forwards" repeat="1"
+							direction="alternate" attribute="position" from="0 0 -1"
+							to="0 0 -0.8" dur="2000"></a-animation>
+						<a-animation begin="mouseenter" fill="forwards" repeat="1"
+							direction="alternate" attribute="rotation" from="0 0 0"
+							to="0 0 360" dur="2000"></a-animation>	
+				</a-entity>
+			</a-entity>
+			
+			<!-- OBJECTS -->
+			<a-entity id="mario" obj-model="obj:#mario-obj; mtl:#mario-mtl" position="-3 2.2 0" scale="0.02 0.02 0.02" maketext="">
+				<a-animation begin="mousedown" direction="alternate" attribute="position" 
+					from="-3 2.3 0" to="-3 6.5 0" repeat="1"><a-animation>
+			</a-entity>
+			
+
+			<a-text id="text1" geometry="primitive:plane; height:0.5; width:1;" 
+				material="color:black; side:double; shader:flat;" position="-2 2 -1" align="center"></a-text>
+
+			<a-sky radius="10" color="lightblue"></a-sky>
+		</a-scene>
+	</body>
+</html>
