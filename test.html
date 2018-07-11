@@ -3,14 +3,7 @@
 	<head>
 		<meta charset="UTF-8"/>
 		<script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
-		<script src="https://unpkg.com/aframe-animation-component@^4.1.2/dist/aframe-animation-component.min.js"></script>
 		<!-- use wasd and scroll wheel to move around -->
-		<script>
-			function clickObj(){
-				var text = document.getElementById("text1");
-				
-			}
-		</script>
 	</head>
 	<body>
 		<a-scene stats>
@@ -25,7 +18,7 @@
 				<a-asset-item id="st-mtl" src="stormtrooper-obj/stormtrooper.mtl"></a-asset-item>
 				<a-asset-item id="mario-obj" src="mario-obj/mario-sculpture.obj"></a-asset-item>
 				<a-asset-item id="mario-mtl" src="mario-obj/mario-sculpture.mtl"></a-asset-item>
-				<img id="reticle" src="ret2.png"/>
+				<img id="reticle" src="img/ret2.png"/>
 			</a-assets>
 			
 			<a-entity mixin="cube short narrow" position="-3 0 0"></a-entity>
@@ -58,10 +51,9 @@
 					from="-3 2.3 0" to="-3 6.5 0" repeat="1"><a-animation>
 			</a-entity>
 			
-			<a-entity obj-model="obj:#st-obj; mtl:#st-mtl" position="3 0.5 0"
-				animation="property:rotation; dur:5000; to:0 360 0; loop:true; startEvents:mouseEnter; pauseEvents:mouseLeave; resumeEvents:mouseEnter;">
-				<!-- <a-animation begin="mousedown" attribute="rotation" fill="forwards" easing="linear" dur="5000" 
-					from="0 0 0" to="0 360 0" repeat="indefinite"></a-animation> -->
+			<a-entity obj-model="obj:#st-obj; mtl:#st-mtl" position="3 0.5 0">
+				<a-animation begin="mousedown" attribute="rotation" fill="forwards" easing="linear" dur="5000" 
+					from="0 0 0" to="0 360 0" repeat="indefinite"></a-animation>
 			</a-entity>
 			
 			<a-text id="text1" value="Click me!" geometry="primitive:plane; height:0.5; width:1.2;" 
