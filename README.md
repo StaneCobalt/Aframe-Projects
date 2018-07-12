@@ -9,4 +9,4 @@ Test 3: Rendering a scene that feels natural.
 
 Basically, I'm learning A-Frame so I can make a virtual tour for my office. You can view the test projects by clicking the link below. 
 
-[Link to live site](https:/stanecobalt.github.io/Aframe-Projects/index.html)
+[Link to live site](https://stanecobalt.github.io/Aframe-Projects/index.html)
