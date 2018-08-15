@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8"/>
+		<script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
+		<script src="https://unpkg.com/aframe-event-set-component@^4.0.0/dist/aframe-event-set-component.min.js"></script>
+		<!-- use wasd and scroll wheel to move around -->
+		<script>
+			//aframe doesn't refresh objects on its own so just adding and removing classes won't work.
+			//We need this script to make it refresh manually.
+			AFRAME.registerComponent('refresh-obj',{
+				init: function(){
+					this.el.addEventListener('click', function(){
+						this.el.components.raycaster.refreshObjects();
+					});
+				}
+			});
+		</script>
+	</head>
+	<body>
+		<a-scene stats>
+			<!-- Camera only plays its fusing animation when intersecting 
+			   -- with an object that has the clickable class. Object trigger events
+			   -- that toggle the classes of their associated object.
+			   -- The red boxes control the colored boxes that are above them when fused / clicked.
+			-->
+			<a-camera>
+				<a-entity id="myCursor" refresh-obj
+								cursor="fuse: true; fuseTimeout: 1500;" position="0 0 -1" 
+								geometry="primitive: sphere; radius: 0.005;"
+								material="color: #FFFFFF; shader: flat; opacity: 0.5;"
+								raycaster="objects: .clickable">
+								<a-animation attribute="scale"
+													to="3 3 3"
+													dur="1500"
+													begin="cursor-fusing"
+													fill="backwards"
+													easing="linear">
+								</a-animation>
+				</a-entity>
+			</a-camera>
+			<!--
+			<a-entity position="0 1.6 0" rotation="-12 0 0">
+				<a-cursor raycaster="showLine: true;"></a-cursor>
+			</a-entity>
+			-->
+			<!-- RED BOXES -->
+			<a-box id="left" color="#AA0000" position="-2 0 -7" class="clickable"
+						event-set__enter="_event: mouseenter; material.color: #FF0000;"
+						event-set__leave="_event: mouseleave; material.color: #AA0000;"
+						event-set__tarcol="_event: click; _target: #green; material.color: #00AAFF;"
+						event-set__clearclass="_event: click; class: not-clickable;"
+						event-set__tarclass="_event: click; _target: #green; class: clickable;">
+			</a-box>
+			
+			<a-box id="center" color="#AA0000" position="0 0 -7" class="clickable"
+						event-set__enter="_event: mouseenter; material.color: #FF0000;"
+						event-set__leave="_event: mouseleave; material.color: #AA0000;"
+						event-set__tarvis="_event: click; _target: #blue; visible: true;"
+						event-set__clearclass="_event: click; class: not-clickable;"
+						event-set__tarclass="_event: click; _target: #blue; class: clickable;">
+			</a-box>
+			
+			<a-box id="right" color="#AA0000" position="2 0 -7" class="clickable"
+						event-set__enter="_event: mouseenter; material.color: #FF0000;"
+						event-set__leave="_event: mouseleave; material.color: #AA0000;"
+						event-set__tarpos="_event: click; _target: #yellow; position: 2 3 -5;"
+						event-set__clearclass="_event: click; class: not-clickable;"
+						event-set__tarclass="_event: click; _target: #yellow; class: clickable;">
+			</a-box>
+			
+			<!-- GREEN/ BLUE/ YELLOW BOXES -->
+			<a-box id="green" color="#00AA00" position="-2 3 -7" class="clickable"
+						event-set__rescol="_event: click; material.color: #00AA00;"
+						event-set__clearclass="_event: click; class: not-clickable;"
+						event-set__tarclass="_event: click; _target: #left; class: clickable;">
+			</a-box>
+			
+			<a-box id="blue" color="#0000AA" position="0 3 -7" class="clickable" visible="false"
+						event-set__resvis="_event: click; visible: false;"
+						event-set__clearclass="_event: click; class: not-clickable;"
+						event-set__tarclass="_event: click; _target: #center; class: clickable;">
+			</a-box>
+			
+			<a-box id="yellow" color="#FFAA00" position="2 3 -7" class="clickable"
+						event-set__respos="_event: click; position: 2 3 -7;"
+						event-set__clearclass="_event: click; class: not-clickable;"
+						event-set__tarclass="_event: click; _target: #right; class: clickable;">
+			</a-box>
+			
+			<a-sky color="#212121"></a-sky>
+		</a-scene>
+	</body>
+</html>
