@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8"/>
+		<script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
+		<script src="https://unpkg.com/aframe-event-set-component@^4.0.0/dist/aframe-event-set-component.min.js"></script>
+		<script>
+			AFRAME.registerComponent('refresh-obj',{
+				init: function(){
+					this.el.addEventListener('click', function(){
+						this.el.components.raycaster.refreshObjects();
+					});
+				}
+			});
+			
+		</script>
+	</head>
+	<body>
+		<a-scene>
+			<a-assets>
+				<img id="space" src="img/purpleSpace.png" />
+				<a-mixin id="button"
+							geometry="primitive: box; height: 2; width: 2; depth: 0.5;"
+							material="color: #990099; metalness: 0.5; roughness: 0.5;">
+				</a-mixin>
+			</a-assets>
+			
+			<a-camera>
+				<a-entity id="myCursor" refresh-obj
+								cursor="fuse: true; fuseTimeout: 1500;" position="0 0 -1" 
+								geometry="primitive: sphere; radius: 0.005;"
+								material="color: #FFFFFF; shader: flat; opacity: 0.5;"
+								raycaster="objects: .clickable">
+								<a-animation attribute="scale"
+													to="3 3 3"
+													dur="1500"
+													begin="cursor-fusing"
+													fill="backwards"
+													easing="linear">
+								</a-animation>
+				</a-entity>
+				<a-entity light="type: point; color: #FFFFFF; distance: 15; angle: 120;
+								intensity: 1; castShadow: true;" >
+				</a-entity>
+			</a-camera>
+			
+			<a-entity geometry="primitive: box; height: 3.5; width: 7; depth: 0.5;"
+							material="color: #990099;" position="0 3 -4">
+			</a-entity>
+			
+			<a-entity mixin="button" position="-2.5 -0.5 -4"
+							>
+			</a-entity>
+			
+			<a-entity mixin="button" position="0 -0.5 -4">
+			</a-entity>
+			
+			<a-entity mixin="button" position="2.5 -0.5 -4">
+			</a-entity>
+			
+			<a-sky src="#space" rotation="0 -90 -15"></a-sky>
+		</a-scene>
+	</body>
+</html>

@@ -8,3 +8,5 @@ Purpose of each test:
 - Test 3: Rendering a scene that feels natural. In this case, an office environment.
 - Test 4: Trying out lights and 3D textures.
 - Test 5: Viewing a 360 photo taken with my 360fly camera.
+- Test 6: Working with selective intersection and gaze based interaction.
+- Test 7: Trying to figure how to get a light attached to the camera to rotate with it
