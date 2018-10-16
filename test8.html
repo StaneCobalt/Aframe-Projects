@@ -4,54 +4,95 @@
         <meta charset="UTF-8">
         <script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
         <script src="https://unpkg.com/aframe-look-at-component@0.5.1/dist/aframe-look-at-component.min.js"></script>
-        <title>Templates</title>
+		<script src="https://unpkg.com/aframe-event-set-component@^4.0.0/dist/aframe-event-set-component.min.js"></script>
+        <title>Template</title>
     </head>
     <body>
         <a-scene>
             <a-assets>
                 <a-mixin id="screen"
-                         geometry="primitive:box; height:3; width:4; depth:0.5;"
-                         material="color: #000000; metalness: 0.75;">
+                         geometry="primitive:plane; height:3; width:4;"
+                         material="color: #333333; metalness: 0.75;"
+						 event-set__enter="_event: mouseenter; material.color: #CCC;"
+						 event-set__leave="_event: mouseleave; material.color: #333333;">
                 </a-mixin>
-                <img id="bg" src="bg.jpg" />
+				
+				<a-mixin id="ground"
+						geometry="primitive:plane; height:20; width:20;"
+						position="0 -1.6 0" 
+						rotation="-90 0 0">
+				</a-mixin>
+				
+                <img id="bg" src="img/bg.jpg" />
+				<img id="tile" src="img/tile1.jpg" />
             </a-assets>
             
-            <a-entity camera="active:true" 
-                      look-controls wasd-controls
-                      position="0 0 0"
-                      data-aframe-default-camera>
-                <a-entity light="type: ambient; color: #FFF"></a-entity>
+            <a-entity id="mainCam" camera="active:true" lightem-up=""
+                      look-controls data-aframe-default-camera>
+				<a-entity cursor="fuse: true; fuseTimeout: 500" 
+						raycaster="objects: .window; far: 20;" 
+						position="0 0 -1"
+						geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
+						material="color: gray; shader: flat; opacity: 0.75;">
+				</a-entity>
             </a-entity>
-            <!-- Square
-            <a-entity mixin="screen" look-at="[camera]" position="-2.5 0 0"></a-entity>
-            <a-entity mixin="screen" look-at="[camera]" position="0 0 -2.5"></a-entity>
-            <a-entity mixin="screen" look-at="[camera]" position="2.5 0 0"></a-entity>
-            <a-entity mixin="screen" look-at="[camera]" position="0 0 2.5"></a-entity>
+			
+			<a-light type="directional"
+					 color="#FFF"
+					 intensity="1.0"
+					 position="0 0 0" 
+					 rotation="-90 0 0" 
+					 target="#lighter">
+				<a-entity id="lighter" position="0 0 0"></a-entity>
+			</a-light>
+			
+			<!-- Square -->
+            <!--
+			<a-entity id="square">
+				<a-entity mixin="screen" look-at="[camera]" position="-2.5 0 0"></a-entity>
+				<a-entity mixin="screen" look-at="[camera]" position="0 0 -2.5"></a-entity>
+				<a-entity mixin="screen" look-at="[camera]" position="2.5 0 0"></a-entity>
+				<a-entity mixin="screen" look-at="[camera]" position="0 0 2.5"></a-entity>
+			</a-entity>
             -->
             
-            <!-- Pentagon
-            <a-entity mixin="screen" look-at="[camera]" position="0 0 -3.5" rotation="0 0 0" material="color:red;"></a-entity>
-            <a-entity mixin="screen" look-at="[camera]" position="-3.25 0 -1.25" rotation="0 72 0" material="color:blue;"></a-entity>
-            <a-entity mixin="screen" look-at="[camera]" position="-2 0 2.75" rotation="0 144 0" material="color:yellow;"></a-entity>
-            <a-entity mixin="screen" look-at="[camera]" position="2 0 2.75" rotation="0 -144 0" material="color:green;"></a-entity>
-            <a-entity mixin="screen" look-at="[camera]" position="3.25 0 -1.25" rotation="0 -72 0"></a-entity>
-            
+            <!-- Pentagon -->
+			<!--
+			<a-entity id="pentagon">
+				<a-entity mixin="screen" look-at="[camera]" position="0 0 -3.5" rotation="0 0 0" material="color:red;"></a-entity>
+				<a-entity mixin="screen" look-at="[camera]" position="-3.25 0 -1.25" rotation="0 72 0" material="color:blue;"></a-entity>
+				<a-entity mixin="screen" look-at="[camera]" position="-2 0 2.75" rotation="0 144 0" material="color:yellow;"></a-entity>
+				<a-entity mixin="screen" look-at="[camera]" position="2 0 2.75" rotation="0 -144 0" material="color:green;"></a-entity>
+				<a-entity mixin="screen" look-at="[camera]" position="3.25 0 -1.25" rotation="0 -72 0"></a-entity>
+            </a-entity>
             
             <a-cylinder height="1.5" radius="4" segments-radial="5" side="double" opacity="0.5"></a-cylinder>
             -->
             
             <!-- Hexagon -->
             <a-entity id="hexagon" position="0 0.25 0">
-                <a-entity mixin="screen" look-at="[camera]" position="2 0 -3.5"></a-entity>
-                <a-entity mixin="screen" look-at="[camera]" position="-2 0 -3.5"></a-entity>
-                <a-entity mixin="screen" look-at="[camera]" position="4 0 0"></a-entity>
-                <a-entity mixin="screen" look-at="[camera]" position="2 0 3.5"></a-entity>
-                <a-entity mixin="screen" look-at="[camera]" position="-2 0 3.5"></a-entity>
-                <a-entity mixin="screen" look-at="[camera]" position="-4 0 0"></a-entity>
+                <a-entity mixin="screen" class="window" look-at="[camera]" position="2 0 -3.5"></a-entity>
+                <a-entity mixin="screen" class="window" look-at="[camera]" position="-2 0 -3.5"></a-entity>
+                <a-entity mixin="screen" class="window" look-at="[camera]" position="4 0 0"></a-entity>
+                <a-entity mixin="screen" class="window" look-at="[camera]" position="2 0 3.5"></a-entity>
+                <a-entity mixin="screen" class="window" look-at="[camera]" position="-2 0 3.5"></a-entity>
+                <a-entity mixin="screen" class="window" look-at="[camera]" position="-4 0 0"></a-entity>
             </a-entity>
-            <a-plane color="#4D4D4D" height="20" width="20" position="0 -1.6 0" rotation="-90 0 0"></a-plane>
+			
+            <a-entity mixin="ground" material="src: #tile; repeat: 10 10;"></a-entity>
             
-            <a-sky src="#bg" radius="10"></a-sky>
+            <a-sky src="#bg" radius="10">
+				<a-animation attribute="rotation"
+						   dur="200000"
+						   fill="forwards"
+						   easing="linear"
+						   to="360 360 0"
+						   repeat="indefinite">
+			   </a-animation>
+			</a-sky>
+			
+			<a-entity light="type: hemisphere; color: #FFF; groundColor: #000000; intensity: 2;"></a-entity>
+			
         </a-scene>
     </body>
 </html>
